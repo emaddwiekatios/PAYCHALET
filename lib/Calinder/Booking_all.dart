@@ -12,6 +12,8 @@ import 'package:paychalet/AppLocalizations.dart';
 //import '../eventclass/eventclassAdd.dart';
 import 'dart:async';
 //import 'PaysDetails.dart';
+
+//emad new update
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'dart:io' show Platform;
 import 'package:paychalet/Payments/PaysMainHistoryOne.dart';
@@ -24,22 +26,17 @@ import 'BookingEdit_all.dart';
 //import 'eventclassDetails.dart';
 
 class Booking_all extends StatefulWidget {
-
   @override
   _Booking_allState createState() => _Booking_allState();
 }
 
 class _Booking_allState extends State<Booking_all> {
-
-
-
-
   DateTime datetime;
   //////device info
   String _homeScreenText = "Waiting for token...";
   String _messageText = "Waiting for message...";
   String _messageTitle = "Waiting for Title...";
-  String g_token ;
+  String g_token;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   String Username;
@@ -51,33 +48,27 @@ class _Booking_allState extends State<Booking_all> {
   QuerySnapshot carstoken;
 
   var refreshKey = GlobalKey<RefreshIndicatorState>();
-  void subscripetotoken()
-  {
+  void subscripetotoken() {
     _firebaseMessaging.subscribeToTopic('tokens');
-
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-
     getUser().then((user) {
-      print('inside  get user');if (user != null) {
+      print('inside  get user');
+      if (user != null) {
         setState(() {
           Username = user.email;
           print('Username0= ${Username}');
           call_get_data();
-
         });
-
-      };
+      }
+      ;
     });
-
-
-
   }
-
 
   getCurrentUser() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -87,18 +78,8 @@ class _Booking_allState extends State<Booking_all> {
     //return user.email;
   }
 
-
-
-
-
-
-
-
-
-
-
-  call_get_data()
-  {print('inside  get data');
+  call_get_data() {
+    print('inside  get data');
     getData().then((results) {
       setState(() {
         cars = results;
@@ -108,15 +89,12 @@ class _Booking_allState extends State<Booking_all> {
     });
   }
 
- 
   //List<eventclass> instlist = List<eventclass>();
   List<eventclass> listtemp;
   List<eventclass> dummyListData = List<eventclass>();
   List<eventclass> duplicateItems2 = List<eventclass>();
   List<eventclass> duplicateItems = List<eventclass>();
   List<eventclass> dummySearchList = List<eventclass>();
-
-
 
   TextEditingController contsearch = new TextEditingController();
 
@@ -126,13 +104,14 @@ class _Booking_allState extends State<Booking_all> {
     double loc_sum = 0.0;
     for (int i = 0; i < len; i++) {
       // print(instlist[i]['Payment_amt']);
-      var temp = (instlist[i].cust_pay) != null ? instlist[i].cust_pay: 0.0;
-      loc_sum = loc_sum + temp ;
+      var temp = (instlist[i].cust_pay) != null ? instlist[i].cust_pay : 0.0;
+      loc_sum = loc_sum + temp;
     }
     setState(() {
       sumprice = loc_sum;
     });
   }
+
   final _scrffordkey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -143,7 +122,7 @@ class _Booking_allState extends State<Booking_all> {
     var appLanguage = Provider.of<AppLanguage>(context);
     return Scaffold(
       key: _scrffordkey,
-     // drawer: Appdrawer(appLanguage: appLanguage,),
+      // drawer: Appdrawer(appLanguage: appLanguage,),
       backgroundColor: Colors.white,
       body: Stack(
         children: <Widget>[
@@ -168,7 +147,7 @@ class _Booking_allState extends State<Booking_all> {
               width: 450, //MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(250),
-                color:Red_deep2,// Color(getColorHexFromStr('#FDD110')),
+                color: Red_deep2, // Color(getColorHexFromStr('#FDD110')),
               ),
             ),
           ),
@@ -180,7 +159,7 @@ class _Booking_allState extends State<Booking_all> {
               width: 350, //MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(200),
-                color: Red_deep1,//red2,
+                color: Red_deep1, //red2,
                 //      )
               ),
             ),
@@ -193,7 +172,7 @@ class _Booking_allState extends State<Booking_all> {
               width: MediaQuery.of(context).size.width / 1.5,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(200),
-                color: Red_deep2,//red2,
+                color: Red_deep2, //red2,
                 //),
               ),
             ),
@@ -201,10 +180,13 @@ class _Booking_allState extends State<Booking_all> {
 //title
           Positioned(
             top: MediaQuery.of(context).size.height / 22,
-            left: MediaQuery.of(context).size.width / 3.5,//- ('eventclass').length,
-            right:MediaQuery.of(context).size.width /  3.5,//- ('eventclass').length,
+            left: MediaQuery.of(context).size.width /
+                3.5, //- ('eventclass').length,
+            right: MediaQuery.of(context).size.width /
+                3.5, //- ('eventclass').length,
             child: Center(
-              child: Text(//'eventclass',
+              child: Text(
+                //'eventclass',
                 AppLocalizations.of(context).translate('Booking'),
                 style: TextStyle(fontSize: 29, fontWeight: FontWeight.bold),
               ),
@@ -226,7 +208,7 @@ class _Booking_allState extends State<Booking_all> {
                 print('inside menu');
                 //_scrffordkey.currentState.openDrawer();
                 //   FirebaseAuth.instance.signOut();
-                 Navigator.pushReplacementNamed(context, "/main_page");
+                Navigator.pushReplacementNamed(context, "/main_page");
               },
             ),
           ),
@@ -236,7 +218,6 @@ class _Booking_allState extends State<Booking_all> {
             child: IconButton(
               icon: Icon(Icons.add, size: 30),
               onPressed: () {
-
                 // _scaffoldKey.currentState.openDrawer();
 
 //                Navigator.of(context).push(
@@ -257,7 +238,6 @@ class _Booking_allState extends State<Booking_all> {
               height: MediaQuery.of(context).size.height - 30,
               width: MediaQuery.of(context).size.width - 30,
               child: _BuildList(),
-
             ),
           ),
           Positioned(
@@ -268,8 +248,6 @@ class _Booking_allState extends State<Booking_all> {
             child: Container(
               height: MediaQuery.of(context).size.height / 20,
               width: MediaQuery.of(context).size.width,
-
-
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Colors.deepOrange[50],
@@ -277,87 +255,69 @@ class _Booking_allState extends State<Booking_all> {
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [Text('Order By:'),
+                children: [
+                  Text('Order By:'),
                   Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                     //   color:Colors.red
+                      borderRadius: BorderRadius.circular(10),
+                      //   color:Colors.red
                       //),
                     ),
-
-
-
                     height: MediaQuery.of(context).size.height / 22,
-                    width: MediaQuery.of(context).size.width/6,
+                    width: MediaQuery.of(context).size.width / 6,
+                    child: IconButton(
+                      icon: Icon(Icons.calendar_today),
+                      onPressed: () {
+                        setState(() {
+                          instlist.sort((a, b) =>
+                              a.booking_date.compareTo(b.booking_date));
 
-                    child: IconButton(icon: Icon(Icons.calendar_today),onPressed: (){
-                      setState(() {
-                        instlist.sort((a,b) =>
-                            a.booking_date.compareTo(b.booking_date));
-
-                        print(instlist);
-                        for (int i =0 ;i<instlist.length;i++)
-                          {
+                          print(instlist);
+                          for (int i = 0; i < instlist.length; i++) {
                             print(instlist[i].booking_entry_date);
-                          
                           }
-
-
-                      });
-
-
-
-                    },),
+                        });
+                      },
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      // color:Colors.red
+                      //),
+                    ),
+                    height: MediaQuery.of(context).size.height / 22,
+                    width: MediaQuery.of(context).size.width / 6,
+                    child: IconButton(
+                      icon: Icon(Icons.arrow_drop_down),
+                      onPressed: () {
+                        setState(() {
+                          instlist.sort(
+                              (b, a) => a.booking_no.compareTo(b.booking_no));
+                          print(instlist);
+                          for (int i = 0; i < instlist.length; i++) {
+                            print(instlist[i].booking_entry_date);
+                            print(instlist[i].booking_no);
+                          }
+                        });
+                      },
+                    ),
                   ),
                   Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                       // color:Colors.red
-                      //),
-                    ),
-
-
-
+                        color: Colors.red
+                        //),
+                        ),
                     height: MediaQuery.of(context).size.height / 22,
-                    width: MediaQuery.of(context).size.width/6,
-
-                    child: IconButton(icon: Icon(Icons.arrow_drop_down),onPressed: (){
-                      setState(() {
-                        instlist.sort((b,a) =>
-                            a.booking_no.compareTo(b.booking_no));
-                        print(instlist);
-                        for (int i =0 ;i<instlist.length;i++)
-                        {
-                          print(instlist[i].booking_entry_date);
-                          print(instlist[i].booking_no);
-                        }
-
-
-
-                      });
-
-
-
-                    },),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color:Colors.red
-                      //),
-                    ),
-
-
-
-                    height: MediaQuery.of(context).size.height / 22,
-                    width: MediaQuery.of(context).size.width/3,
-
-                    child: Center(child: Text('${AppLocalizations.of(context).translate('Total')}'+ ' : ${sumprice}')
-                    ),
+                    width: MediaQuery.of(context).size.width / 3,
+                    child: Center(
+                        child: Text(
+                            '${AppLocalizations.of(context).translate('Total')}' +
+                                ' : ${sumprice}')),
                   ),
                 ],
               ),
-
             ),
           ),
 
@@ -383,13 +343,11 @@ class _Booking_allState extends State<Booking_all> {
                     },
                     decoration: InputDecoration(
                         border: InputBorder.none,
-                        prefixIcon: Icon(Icons.search,
-                            color: Red_deep,
-                            size: 30.0),
+                        prefixIcon:
+                            Icon(Icons.search, color: Red_deep, size: 30.0),
                         suffixIcon: IconButton(
-                            icon: Icon(Icons.cancel,
-                                color: Red_deep,
-                                size: 30.0),
+                            icon:
+                                Icon(Icons.cancel, color: Red_deep, size: 30.0),
                             onPressed: () {
                               print('inside clear');
                               contsearch.clear();
@@ -398,36 +356,32 @@ class _Booking_allState extends State<Booking_all> {
                               gettypetotalprice();
                             }),
                         contentPadding: EdgeInsets.only(left: 15.0, top: 15.0),
-                        hintText:AppLocalizations.of(context).translate('Search by Name') ,
+                        hintText: AppLocalizations.of(context)
+                            .translate('Search by Name'),
                         hintStyle: TextStyle(
                             color: Colors.grey, fontFamily: 'Quicksand'))),
               ),
             ),
           ),
-
-
-
         ],
       ),
     );
-
-
-
   }
+
   Widget _BuildList() {
     return //instlist.length > 0
-      //    ?
-      RefreshIndicator(
-        // key: refreshKey,
-          child:  ListView.builder(
-              itemCount: instlist.length,
-              itemBuilder: (BuildContext context, int index) {
-                return build_item(context, index);
-              }),
-          onRefresh: refreshList
-      );
+        //    ?
+        RefreshIndicator(
+            // key: refreshKey,
+            child: ListView.builder(
+                itemCount: instlist.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return build_item(context, index);
+                }),
+            onRefresh: refreshList);
     // : Center(child: CircularProgressIndicator());
   }
+
   ///
 
   Future<Null> refreshList() async {
@@ -442,34 +396,33 @@ class _Booking_allState extends State<Booking_all> {
             // print('Username0= ${Username}');
             call_get_data();
           });
-
-        };
+        }
+        ;
       });
     });
 
     return null;
   }
 
-
-
-
   getData() async {
-    return await FirebaseFirestore.instance.collection('events')
-    //.orderBy('Payment_id', descending: true)
-       // .where("Shack_user", isEqualTo:Username.toString())
+    return await FirebaseFirestore.instance
+        .collection('events')
+        //.orderBy('Payment_id', descending: true)
+        // .where("Shack_user", isEqualTo:Username.toString())
         .get();
-
   }
 
-  printlist() {print('inside  printlist');
+  printlist() {
+    print('inside  printlist');
     if (cars != null) {
       setState(() {
         instlist.clear();
-       // _events = {};
+        // _events = {};
       });
 
       for (var i = 0; i < cars.docs.length; i++) {
-         print('inside for $i');  print(cars.docs);
+        print('inside for $i');
+        print(cars.docs);
         eventclass instone = new eventclass();
         instone.booking_no = cars.docs[i].data()['booking_no'];
         instone.booking_date = cars.docs[i].data()['booking_date'].toDate();
@@ -489,39 +442,27 @@ class _Booking_allState extends State<Booking_all> {
         instone.booking_status = cars.docs[i].data()['booking_status'];
         instone.docs_id = cars.docs[i].id;
         //instlist.add(instone);
-      //  _selectedDay = instone.booking_date;
-         print(cars.docs[i].data()['cust_name']);
+        //  _selectedDay = instone.booking_date;
+        print(cars.docs[i].data()['cust_name']);
         setState(() {
           instlist.add(instone);
         });
       }
-      if(instlist.length>0) {
+      if (instlist.length > 0) {
         print(instlist.length);
-        instlist.sort(
-                (a, b) => a.booking_no.compareTo(b.booking_no));
+        instlist.sort((a, b) => a.booking_no.compareTo(b.booking_no));
         var array_len = instlist.length;
         setState(() {
-          Shack_max = ((instlist[array_len - 1].booking_no + 1)
-              .toString());
+          Shack_max = ((instlist[array_len - 1].booking_no + 1).toString());
 
 //          Shack_max_ref =((instlist[array_len - 1].booking_no_ref + 1)
 //              .toString());
 
-
-
-          instlist.sort((a,b) =>
-              a.booking_date.compareTo(b.booking_date));
-
-
-
-
+          instlist.sort((a, b) => a.booking_date.compareTo(b.booking_date));
 
           duplicateItems = instlist;
         });
       }
-
-
-
     } else {
       print("error");
     }
@@ -536,16 +477,15 @@ class _Booking_allState extends State<Booking_all> {
           clipBehavior: Clip.antiAlias,
           elevation: 0.0,
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           child: InkWell(
             onTap: () {
               eventclass event1 = instlist[index];
               Navigator.of(context).push(
                 new MaterialPageRoute(
-                    builder: (BuildContext context) => new BookingEdit_all( evn: event1,)
-
-
-                    ),
+                    builder: (BuildContext context) => new BookingEdit_all(
+                          evn: event1,
+                        )),
               );
             },
             child: Padding(
@@ -623,8 +563,12 @@ class _Booking_allState extends State<Booking_all> {
                                   //SizedBox(height: 7.0),
                                   //
                                   Text(
-                                    '${AppLocalizations.of(context).translate('Amount') }: '  +
-                                        (instlist[index].cust_pay).toString()+ (instlist[index].booking_status=='Dollar' ? ' \$':' sh'),
+                                    '${AppLocalizations.of(context).translate('Amount')}: ' +
+                                        (instlist[index].cust_pay).toString() +
+                                        (instlist[index].booking_status ==
+                                                'Dollar'
+                                            ? ' \$'
+                                            : ' sh'),
                                     style: TextStyle(
                                         fontFamily: 'Montserrat',
                                         fontWeight: FontWeight.bold,
@@ -632,7 +576,8 @@ class _Booking_allState extends State<Booking_all> {
                                         color: Color(0xFFFDD34A)),
                                   ),
                                   Row(
-                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Text(
                                         instlist[index].booking_desc,
@@ -642,25 +587,32 @@ class _Booking_allState extends State<Booking_all> {
                                             fontSize: 18.0,
                                             color: Colors.black),
                                       ),
-                                      SizedBox(width:20),
+                                      SizedBox(width: 20),
                                       Container(
-                                          height:25 ,
+                                          height: 25,
                                           width: 70,
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                             color: Colors.amber,
                                           ),
-                                          child:Padding(
+                                          child: Padding(
                                             padding: const EdgeInsets.all(4.0),
-                                            child: Center(child: Text(instlist[index].booking_type)),
-                                          )
-                                      ),
+                                            child: Center(
+                                                child: Text(instlist[index]
+                                                    .booking_type)),
+                                          )),
                                     ],
                                   ),
 
                                   Text(
-    'Entry: ${formatDate(instlist[index].booking_entry_date,[yyyy,'-',M,'-',dd])}'
-                                    ,
+                                    'Entry: ${formatDate(instlist[index].booking_entry_date, [
+                                      yyyy,
+                                      '-',
+                                      M,
+                                      '-',
+                                      dd
+                                    ])}',
                                     style: TextStyle(
                                         fontFamily: 'Montserrat',
                                         //fontWeight: FontWeight.bold,
@@ -668,8 +620,13 @@ class _Booking_allState extends State<Booking_all> {
                                         color: Colors.black),
                                   ),
                                   Text(
-                                    'Date: ${formatDate(instlist[index].booking_date,[yyyy,'-',M,'-',dd])}'
-                                    ,
+                                    'Date: ${formatDate(instlist[index].booking_date, [
+                                      yyyy,
+                                      '-',
+                                      M,
+                                      '-',
+                                      dd
+                                    ])}',
                                     style: TextStyle(
                                         fontFamily: 'Montserrat',
                                         //fontWeight: FontWeight.bold,
@@ -677,9 +634,17 @@ class _Booking_allState extends State<Booking_all> {
                                         color: Colors.black),
                                   ),
                                   Row(
-                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
-                                      Text('From : ${formatDate(instlist[index].booking_startTime,[dd,':',hh ,' ',am ])}',
+                                      Text(
+                                        'From : ${formatDate(instlist[index].booking_startTime, [
+                                          dd,
+                                          ':',
+                                          hh,
+                                          ' ',
+                                          am
+                                        ])}',
 //                                      ( instlist[index]['Payment_to'].length > 19)
 //                                        ? instlist[index]['Payment_to']
 //                                        .substring(0, 19)
@@ -690,8 +655,15 @@ class _Booking_allState extends State<Booking_all> {
                                             fontSize: 15.0,
                                             color: Colors.black),
                                       ),
-                                      SizedBox(width:20),
-                                      Text('To : ${formatDate(instlist[index].booking_endTime,[dd,':',hh,' ',am ])}',
+                                      SizedBox(width: 20),
+                                      Text(
+                                        'To : ${formatDate(instlist[index].booking_endTime, [
+                                          dd,
+                                          ':',
+                                          hh,
+                                          ' ',
+                                          am
+                                        ])}',
 //                                      ( instlist[index]['Payment_to'].length > 19)
 //                                        ? instlist[index]['Payment_to']
 //                                        .substring(0, 19)
@@ -705,18 +677,22 @@ class _Booking_allState extends State<Booking_all> {
                                     ],
                                   ),
                                   Container(
-                                    height:25 ,
-                                    width: 70,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: instlist[index].booking_date.isAfter(DateTime.now()) ? Colors.lightBlue :Colors.green,
-                                    ),
-                                    child:Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Center(child: Text(instlist[index].booking_status)),
-                                    )
-                                  )
-
+                                      height: 25,
+                                      width: 70,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: instlist[index]
+                                                .booking_date
+                                                .isAfter(DateTime.now())
+                                            ? Colors.lightBlue
+                                            : Colors.green,
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Center(
+                                            child: Text(instlist[index]
+                                                .booking_status)),
+                                      ))
                                 ],
                               ),
                               Row(
@@ -725,19 +701,18 @@ class _Booking_allState extends State<Booking_all> {
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
-
-
                                       Row(
                                         children: <Widget>[
                                           Text(
-                                            '${instlist[index].booking_by!=null ? instlist[index].booking_by : 0}',
+                                            '${instlist[index].booking_by != null ? instlist[index].booking_by : 0}',
                                           ),
                                           SizedBox(width: 10.0),
                                           Text(
-                                             instlist[index].booking_no.toString(),
+                                            instlist[index]
+                                                .booking_no
+                                                .toString(),
                                           ),
                                           SizedBox(width: 10.0),
-
                                         ],
                                       ),
                                       IconButton(
@@ -746,36 +721,36 @@ class _Booking_allState extends State<Booking_all> {
                                           color: Colors.red,
                                         ),
                                         onPressed: () {
-                                          showAlertDialog(context,index);
+                                          showAlertDialog(context, index);
                                         },
                                       ),
                                       Row(
                                         children: [
                                           IconButton(
-                                            icon: Icon(Icons.history, color: Colors.red),
+                                            icon: Icon(Icons.history,
+                                                color: Colors.red),
                                             onPressed: () {
                                               //                                          Navigator.of(context).push(
 
-    print(instlist[index].booking_no.toString());
+                                              print(instlist[index]
+                                                  .booking_no
+                                                  .toString());
 
-                                          Navigator.of(context).push(
-                                            new MaterialPageRoute(
-                                                builder: (BuildContext context) =>
-                                                new Booking_all_history(
-                                                  Booking_no: instlist[index].booking_no.toString(),
-
-                                                )),
-                                          );
-
-
-
-
+                                              Navigator.of(context).push(
+                                                new MaterialPageRoute(
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        new Booking_all_history(
+                                                          Booking_no:
+                                                              instlist[index]
+                                                                  .booking_no
+                                                                  .toString(),
+                                                        )),
+                                              );
                                             },
                                           ),
-
                                         ],
                                       ),
-
                                     ],
                                   ),
                                 ],
@@ -793,14 +768,11 @@ class _Booking_allState extends State<Booking_all> {
 //            color: Colors.red,
 //          ),
 //        )
-
-
-
       ],
     );
   }
 
-  deleteData(docId ) async {
+  deleteData(docId) async {
     FirebaseFirestore.instance
         .collection('events')
         .doc(docId)
@@ -814,7 +786,6 @@ class _Booking_allState extends State<Booking_all> {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     return await _auth.currentUser;
   }
-
 
   void filterSearchResults(String query) {
     print(duplicateItems);
@@ -832,7 +803,7 @@ class _Booking_allState extends State<Booking_all> {
         //print(item['Payment_name']);
         if (item.cust_name.toUpperCase().contains(query.toUpperCase()) ||
             item.cust_name.contains(query)) {
-         // print('inside if ${item['Payment_name']}');
+          // print('inside if ${item['Payment_name']}');
           dummyListData.add(item);
         }
       });
@@ -852,33 +823,27 @@ class _Booking_allState extends State<Booking_all> {
     print('the list search${instlist}');
   }
 
-  showAlertDialog(BuildContext context,int  index) {
+  showAlertDialog(BuildContext context, int index) {
     // set up the buttons
     Widget cancelButton = FlatButton(
       child: Text("Cancel"),
-      onPressed:  () {
+      onPressed: () {
         Navigator.pop(context);
       },
     );
     Widget continueButton = FlatButton(
         child: Text("Comfired"),
-        onPressed:  () {
+        onPressed: () {
+          print(instlist[index].docs_id.toString());
 
-
-          print(instlist[index].docs_id
-              .toString());
-
-          deleteData(instlist[index].docs_id
-              .toString());
+          deleteData(instlist[index].docs_id.toString());
           //instlist[index]['Payment_img']
           //);
           instlist.removeAt(index);
           gettypetotalprice();
 
-
           Navigator.pop(context);
         });
-
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
@@ -898,8 +863,3 @@ class _Booking_allState extends State<Booking_all> {
     );
   }
 }
-
-
-
-
-
