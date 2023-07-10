@@ -260,7 +260,7 @@ class _BookingSumState extends State<BookingSum> with TickerProviderStateMixin {
     var pheight = MediaQuery
         .of(context)
         .size
-        .height;
+        .height-20;
     var pwidth = MediaQuery
         .of(context)
         .size
@@ -392,9 +392,9 @@ class _BookingSumState extends State<BookingSum> with TickerProviderStateMixin {
             ),
             //body
             Positioned(
-              top: pheight / 15,
+              top: pheight / 10,
               right: 0,
-              bottom: 50,
+              bottom: pheight/8,
               child: Container(
                 width: MediaQuery
                     .of(context)
@@ -469,7 +469,7 @@ if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
               right: 0,
               bottom: 0,
               child: Container(
-                height: MediaQuery.of(context).size.height / 8,
+                height: MediaQuery.of(context).size.height / 9,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
